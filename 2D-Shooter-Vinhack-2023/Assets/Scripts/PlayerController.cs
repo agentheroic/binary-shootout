@@ -14,6 +14,8 @@ public class PlayerController : MonoBehaviour
     private bool isOnGround;
     public LayerMask whatisGround;
 
+    public Animator anim;
+
     void Start()
     {
         
@@ -24,6 +26,7 @@ public class PlayerController : MonoBehaviour
     {
         theRB.velocity = new Vector2(Input.GetAxisRaw("Horizontal") * moveSpeed, theRB.velocity.y);
 
+
         isOnGround = Physics2D.OverlapCircle(groundPoint.position, .2f, whatisGround);
 
 
@@ -31,6 +34,10 @@ public class PlayerController : MonoBehaviour
         {
             theRB.velocity = new Vector2(theRB.velocity.x, jumpForce);
         }
+
+
+        anim.SetBool("isOnGround", isOnGround);
+        anim.SetFloat("speed", Mathf.Abs(theRB.velocity.x));
 
     }
 }
